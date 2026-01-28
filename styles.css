@@ -405,7 +405,7 @@ body {
 
 .hero-image {
     flex-shrink: 0;
-    width: 180px;
+    width: 350px;
     position: relative;
 }
 
@@ -553,7 +553,7 @@ body {
     }
     
     .hero-image {
-        max-width: 300px;
+        max-width: 400px;
         margin: 0 auto;
     }
     
@@ -4007,7 +4007,7 @@ section * {
 @media (max-width: 480px) {
     /* Mobile très petit - optimisations supplémentaires */
     .hero-image {
-        width: 200px;
+        width: 320px;
     }
     
     .hero-title {
