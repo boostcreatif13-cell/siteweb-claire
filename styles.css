@@ -2089,8 +2089,415 @@ section:first-of-type::before {
 }
 
 /* ============================================
-   SECTION PRESTATIONS
+   SECTION PRESTATIONS - NOUVEAU DESIGN
    ============================================ */
+
+/* Section Introduction */
+.prestations-intro-section {
+    background: var(--white);
+    padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.prestations-intro-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.prestations-intro-text {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    margin-bottom: var(--spacing-md);
+}
+
+.prestations-intro-highlight {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.8;
+}
+
+/* Section Détail Prestation */
+.prestation-detail-section {
+    background: var(--light-color);
+    padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.serenite-section {
+    background: var(--white);
+}
+
+.prestation-detail-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.prestation-detail-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    position: relative;
+}
+
+.prestation-detail-header.featured-header {
+    padding-top: 60px;
+}
+
+.featured-banner-large {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: var(--dark-color);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+    z-index: 10;
+    white-space: nowrap;
+    animation: bannerPulse 2s ease-in-out infinite;
+}
+
+.prestation-detail-badge {
+    display: inline-block;
+    background: var(--primary-color);
+    color: var(--white);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.prestation-detail-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 400;
+}
+
+.prestation-detail-tagline {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    margin-bottom: var(--spacing-md);
+}
+
+.prestation-detail-description {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.prestation-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    margin: var(--spacing-xl) 0;
+}
+
+.prestation-benefit-card,
+.prestation-service-card {
+    background: var(--white);
+    padding: var(--spacing-lg);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+}
+
+.prestation-benefit-card:hover,
+.prestation-service-card:hover {
+    box-shadow: 0 15px 40px rgba(181, 97, 57, 0.15);
+    transform: translateY(-5px);
+}
+
+.prestation-benefit-card h3,
+.prestation-service-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
+.benefit-list,
+.service-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.benefit-list li,
+.service-list li {
+    padding: var(--spacing-sm) 0;
+    padding-left: var(--spacing-lg);
+    position: relative;
+    color: var(--text-dark);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.benefit-list li::before,
+.service-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.prestation-target-card {
+    background: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    margin-top: var(--spacing-xl);
+    border: 3px solid transparent;
+    transition: all 0.4s ease;
+}
+
+.prestation-target-card:hover {
+    box-shadow: 0 15px 50px rgba(181, 97, 57, 0.2);
+    border-color: rgba(181, 97, 57, 0.2);
+}
+
+.prestation-target-card.featured-target {
+    background: var(--gradient-2);
+    border-color: var(--primary-color);
+}
+
+.prestation-target-card.featured-target h3,
+.prestation-target-card.featured-target p,
+.prestation-target-card.featured-target .detail-label,
+.prestation-target-card.featured-target .detail-value {
+    color: var(--white);
+}
+
+.prestation-target-card h3 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+    text-align: center;
+}
+
+.prestation-target-card p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.prestation-details {
+    background: rgba(181, 97, 57, 0.05);
+    padding: var(--spacing-lg);
+    border-radius: 15px;
+    margin: var(--spacing-lg) 0;
+}
+
+.prestation-target-card.featured-target .prestation-details {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.prestation-target-card.featured-target .detail-item {
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.detail-value {
+    color: var(--text-light);
+    font-size: 1.05rem;
+}
+
+.detail-item.highlight-price {
+    background: rgba(181, 97, 57, 0.1);
+    padding: var(--spacing-md);
+    border-radius: 10px;
+    border: none;
+    margin-top: var(--spacing-md);
+}
+
+.prestation-target-card.featured-target .detail-item.highlight-price {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.detail-item.highlight-price .detail-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.prestation-target-card.featured-target .detail-item.highlight-price .detail-value {
+    color: var(--white);
+}
+
+.price-note {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: var(--spacing-sm);
+    line-height: 1.6;
+}
+
+.prestation-target-card.featured-target .price-note {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.prestation-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md) var(--spacing-xl);
+}
+
+/* Section Méthodes de travail - Design Créatif */
+.prestations-methods-section {
+    background: var(--light-color);
+    padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.methods-grid-creative {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.method-card-creative {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    border: 2px solid transparent;
+}
+
+.method-card-creative:hover {
+    box-shadow: 0 15px 40px rgba(181, 97, 57, 0.2);
+    border-color: rgba(181, 97, 57, 0.3);
+    transform: translateX(10px);
+}
+
+.method-card-sidebar {
+    width: 6px;
+    background: var(--gradient-1);
+    flex-shrink: 0;
+    transition: width 0.4s ease;
+}
+
+.method-card-creative:hover .method-card-sidebar {
+    width: 8px;
+}
+
+.method-card-content {
+    flex: 1;
+    padding: var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.method-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, rgba(181, 97, 57, 0.1) 0%, rgba(86, 70, 59, 0.1) 100%);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    transition: all 0.4s ease;
+}
+
+.method-card-creative:hover .method-icon-wrapper {
+    background: var(--gradient-1);
+    color: var(--white);
+    transform: rotate(5deg) scale(1.05);
+}
+
+.method-icon-wrapper svg {
+    width: 32px;
+    height: 32px;
+}
+
+.method-text-content {
+    flex: 1;
+}
+
+.method-text-content h3 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+}
+
+.method-text-content p {
+    color: var(--text-light);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin: 0;
+}
+
+@media (max-width: 968px) {
+    .prestation-detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .methods-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .prestation-detail-header.featured-header {
+        padding-top: 50px;
+    }
+    
+    .prestation-detail-title {
+        font-size: 2rem;
+    }
+    
+    .prestation-target-card {
+        padding: var(--spacing-lg);
+    }
+}
 
 .prestations-section {
     background: var(--white);
@@ -2983,6 +3390,221 @@ section:first-of-type::before {
     background: var(--white);
     padding: var(--spacing-xl) var(--spacing-md);
     min-height: 70vh;
+}
+
+/* ============================================
+   PAGE ME CONTACTER - LAYOUT HORIZONTAL
+   ============================================ */
+
+.contact-section-horizontal {
+    background: var(--light-color);
+    padding: var(--spacing-xl) var(--spacing-md);
+}
+
+.contact-header-horizontal {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-title-horizontal {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 400;
+}
+
+.contact-subtitle-horizontal {
+    font-size: 1.3rem;
+    color: var(--text-light);
+}
+
+.contact-cards-horizontal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.contact-card-horizontal {
+    background: var(--white);
+    border-radius: 30px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-card-horizontal:hover {
+    box-shadow: 0 20px 60px rgba(181, 97, 57, 0.2);
+    transform: translateY(-5px);
+}
+
+.card-header-horizontal {
+    padding: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--light-color) 0%, #faf8f5 100%);
+    border-bottom: 3px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.card-icon-horizontal {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-1);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    flex-shrink: 0;
+}
+
+.card-title-wrapper h2 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--dark-color);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+}
+
+.card-title-wrapper p {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin: 0;
+}
+
+.calendly-card-horizontal {
+    padding: 0;
+}
+
+.calendly-wrapper-horizontal {
+    padding: var(--spacing-lg);
+    height: 600px;
+    overflow: hidden;
+}
+
+.calendly-wrapper-horizontal .calendly-inline-widget {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.form-card-horizontal {
+    padding: var(--spacing-lg);
+}
+
+.contact-form-horizontal {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.form-row-horizontal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+}
+
+.form-group-horizontal {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-horizontal label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.95rem;
+}
+
+.form-group-horizontal input,
+.form-group-horizontal select,
+.form-group-horizontal textarea {
+    padding: var(--spacing-sm);
+    border: 2px solid var(--light-color);
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--white);
+    color: var(--text-dark);
+}
+
+.form-group-horizontal input:focus,
+.form-group-horizontal select:focus,
+.form-group-horizontal textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(181, 97, 57, 0.1);
+}
+
+.form-group-horizontal.full-width {
+    grid-column: 1 / -1;
+}
+
+.checkbox-horizontal {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.checkbox-horizontal input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+.checkbox-horizontal label {
+    margin: 0;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.btn-submit-horizontal {
+    width: 100%;
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+}
+
+@media (max-width: 1200px) {
+    .contact-cards-horizontal {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-lg);
+    }
+    
+    .calendly-wrapper-horizontal {
+        height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-section-horizontal {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    
+    .contact-card-horizontal {
+        border-radius: 20px;
+    }
+    
+    .card-header-horizontal {
+        flex-direction: column;
+        text-align: center;
+        padding: var(--spacing-md);
+    }
+    
+    .form-row-horizontal {
+        grid-template-columns: 1fr;
+    }
+    
+    .calendly-wrapper-horizontal {
+        height: 450px;
+        padding: var(--spacing-md);
+    }
 }
 
 .contact-header {
