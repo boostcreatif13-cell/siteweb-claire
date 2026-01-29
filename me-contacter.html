@@ -16,7 +16,7 @@
     <meta property="og:url" content="https://www.clairestehlin.com/me-contacter.html">
     <meta property="og:title" content="Me contacter - Claire Stehlin | Formulaire de Contact">
     <meta property="og:description" content="Contactez Claire Stehlin pour discuter de vos besoins en délégation administrative. Téléphone : 06 99 02 92 09">
-    <meta property="og:image" content="https://www.clairestehlin.com/logo.jpeg">
+    <meta property="og:image" content="https://www.clairestehlin.com/assets/Logo/logo.jpeg">
     
     <!-- TWITTER CARD -->
     <meta name="twitter:card" content="summary_large_image">
@@ -25,13 +25,16 @@
     
     <title>Me contacter - Claire Stehlin | Formulaire de Contact Complet</title>
     <link rel="canonical" href="https://www.clairestehlin.com/me-contacter.html">
-    <link rel="icon" type="image/jpeg" href="logo.jpeg">
-    <link rel="shortcut icon" type="image/jpeg" href="logo.jpeg">
-    <link rel="apple-touch-icon" href="logo.jpeg">
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+    <link rel="icon" type="image/jpeg" href="assets/Logo/logo.jpeg">
+    <link rel="shortcut icon" type="image/jpeg" href="assets/Logo/logo.jpeg">
+    <link rel="apple-touch-icon" href="assets/Logo/logo.jpeg">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Montserrat:wght@300;400;500;600&family=Lato:ital,wght@0,400;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
 </head>
 <body>
     <div id="particles"></div>
@@ -40,7 +43,7 @@
         <div class="nav-container">
             <div class="logo">
                 <a href="index.html" class="logo-link">
-                    <img src="logo.jpeg" alt="Claire Stehlin - Assistante Virtuelle" class="logo-image">
+                    <img src="assets/Logo/logo.jpeg" alt="Claire Stehlin - Assistante Virtuelle" class="logo-image" width="250" height="70" loading="eager">
                 </a>
             </div>
             <ul class="nav-menu" id="navMenu">
@@ -63,7 +66,7 @@
         <div class="hero-carousel">
             <div class="carousel-container">
                 <div class="carousel-slide active">
-                    <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&h=1080&fit=crop" alt="Gestionnaire administrative au bureau" onerror="this.src='https://via.placeholder.com/1920x1080/b56139/ffffff?text=Gestionnaire+Administrative'">
+                    <img src="assets/Bannière/pexels-arina-krasnikova-5712080.jpg" alt="Gestionnaire administrative au bureau" loading="eager" width="1920" height="1080">
                     <div class="carousel-overlay"></div>
                     <div class="carousel-text-overlay">
                         <h2>Bras droit organisationnel</h2>
@@ -71,7 +74,7 @@
                     </div>
                 </div>
                 <div class="carousel-slide">
-                    <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1920&h=1080&fit=crop" alt="Assistante virtuelle travaillant à distance" onerror="this.src='https://via.placeholder.com/1920x1080/56463b/ffffff?text=Travail+à+Distance'">
+                    <img src="assets/Bannière/pexels-burst-374079.jpg" alt="Assistante virtuelle travaillant à distance" loading="lazy" width="1920" height="1080">
                     <div class="carousel-overlay"></div>
                     <div class="carousel-text-overlay">
                         <h2>Soirées plus légères</h2>
@@ -79,7 +82,7 @@
                     </div>
                 </div>
                 <div class="carousel-slide">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop" alt="Organisation administrative et gestion de documents" onerror="this.src='https://via.placeholder.com/1920x1080/cfc6be/56463b?text=Organisation+Administrative'">
+                    <img src="assets/Bannière/pexels-ono-kosuki-5974395.jpg" alt="Organisation administrative et gestion de documents" loading="lazy" width="1920" height="1080">
                     <div class="carousel-overlay"></div>
                     <div class="carousel-text-overlay">
                         <h2>Charge mentale allégée</h2>
@@ -87,7 +90,7 @@
                     </div>
                 </div>
                 <div class="carousel-slide">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&h=1080&fit=crop" alt="Bureau organisé et gestion administrative professionnelle" onerror="this.src='https://via.placeholder.com/1920x1080/b56139/ffffff?text=Bureau+Organisé'">
+                    <img src="assets/Bannière/pexels-tima-miroshnichenko-6195895.jpg" alt="Bureau organisé et gestion administrative professionnelle" loading="lazy" width="1920" height="1080">
                     <div class="carousel-overlay"></div>
                     <div class="carousel-text-overlay">
                         <h2>Travail asynchrone</h2>
@@ -117,6 +120,24 @@
             </div>
 
             <div class="contact-wrapper-new">
+                <!-- Section Calendly -->
+                <div class="calendly-contact-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="calendly-contact-header">
+                        <div class="calendly-contact-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        <h3>Ou réservez directement un appel</h3>
+                        <p>Choisissez un créneau qui vous convient pour un échange de 30 minutes</p>
+                    </div>
+                    <div class="calendly-contact-embed">
+                        <div class="calendly-inline-widget" data-url="https://calendly.com/stehlin-pro/30min" style="min-width:320px;height:650px;"></div>
+                    </div>
+                </div>
 
                 <div class="contact-form-wrapper-new" data-aos="fade-up" data-aos-delay="200">
                     <div class="form-header">
@@ -182,7 +203,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section footer-brand">
-                    <img src="logo.jpeg" alt="Claire Stehlin" class="footer-logo">
+                    <img src="assets/Logo/logo.jpeg" alt="Claire Stehlin" class="footer-logo" loading="lazy" width="200" height="56">
                     <p class="footer-tagline">Assistante virtuelle / Bras droit organisationnel</p>
                 </div>
                 
@@ -209,7 +230,7 @@
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                                 <polyline points="22,6 12,13 2,6"/>
                             </svg>
-                            <a href="mailto:contact@clairestehlin.com">contact@clairestehlin.com</a>
+                            <a href="mailto:stehlin.pro@gmail.com">stehlin.pro@gmail.com</a>
                         </li>
                         <li>
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -247,15 +268,32 @@
         </div>
     </footer>
 
+    <!-- CTA Flottant Fixe -->
+    <div class="floating-cta" id="floatingCTA">
+        <a href="https://calendly.com/stehlin-pro/30min" target="_blank" class="floating-cta-button" aria-label="Réserver un appel découverte">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Réserver un appel</span>
+        </a>
+    </div>
+
+    <!-- Exit-Intent Popup -->
+    <div class="exit-intent-popup" id="exitIntentPopup">
+        <div class="exit-popup-overlay"></div>
+        <div class="exit-popup-content">
+            <button class="exit-popup-close" id="closeExitPopup" aria-label="Fermer">×</button>
+            <div class="exit-popup-icon">📅</div>
+            <h3>Ne partez pas sans réserver votre appel découverte !</h3>
+            <p>Profitez d'un échange de 30 minutes gratuit pour discuter de vos besoins en délégation administrative.</p>
+            <a href="https://calendly.com/stehlin-pro/30min" target="_blank" class="btn-primary exit-popup-cta">Réserver maintenant</a>
+            <p class="exit-popup-note">Sans engagement • Gratuit • 30 minutes</p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
-    <script>
-        // Gestion du formulaire de contact
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Ici vous pouvez ajouter la logique d'envoi du formulaire
-            alert('Merci pour votre message ! Je vous répondrai dans les plus brefs délais.');
-            this.reset();
-        });
-    </script>
 </body>
 </html>

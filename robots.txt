@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.clairestehlin.com/sitemap.xml
+
+# Fichiers à ne pas indexer
+Disallow: /Docs/
+Disallow: /*.md$
+
+# Autoriser les ressources importantes
+Allow: /assets/
+Allow: /styles.css
+Allow: /script.js

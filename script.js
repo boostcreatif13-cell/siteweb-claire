@@ -32,13 +32,17 @@ function initCarousel() {
     });
     
     // Indicateurs
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            stopCarousel();
-            showSlide(index);
-            startCarousel();
+    if (indicators.length > 0) {
+        indicators.forEach((indicator, index) => {
+            if (indicator) {
+                indicator.addEventListener('click', () => {
+                    stopCarousel();
+                    showSlide(index);
+                    startCarousel();
+                });
+            }
         });
-    });
+    }
     
     // Pause au survol
     const carousel = document.querySelector('.hero-carousel');
@@ -95,27 +99,33 @@ const navMenu = document.getElementById('navMenu');
 const navLinks = document.querySelectorAll('.nav-link');
 
 // Navbar scroll effect
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
+if (navbar) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+}
 
 // Hamburger menu toggle
-hamburger.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    hamburger.classList.toggle('active');
-});
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+}
 
 // Close menu when clicking on a link
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        hamburger.classList.remove('active');
+if (navMenu && hamburger && navLinks.length > 0) {
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
     });
-});
+}
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -183,7 +193,10 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-createParticles();
+// Créer les particules seulement si l'élément existe
+if (document.getElementById('particles')) {
+    createParticles();
+}
 
 // ============================================
 // ANIMATIONS AU SCROLL (AOS - Animate On Scroll)
@@ -221,17 +234,28 @@ document.querySelectorAll('[data-aos]').forEach(el => {
 // ANIMATION DES CARTES AU HOVER
 // ============================================
 
-const cards = document.querySelectorAll('.problem-card, .service-card, .prestation-card, .why-card');
+// Exclure .problem-card et .not-service-item car le CSS gère déjà le hover avec animations
+const cards = document.querySelectorAll('.service-card, .prestation-card, .why-card');
 
-cards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
+if (cards.length > 0) {
+    cards.forEach(card => {
+        if (card && !card.classList.contains('problem-card') && !card.classList.contains('not-service-item')) {
+            card.addEventListener('mouseenter', function() {
+                // Ne pas modifier si le CSS gère déjà le hover
+                if (!this.classList.contains('problem-card') && !this.classList.contains('not-service-item')) {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                // Ne pas modifier si le CSS gère déjà le hover
+                if (!this.classList.contains('problem-card') && !this.classList.contains('not-service-item')) {
+                    this.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+        }
     });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
+}
 
 // ============================================
 // ANIMATION DU TEXTE "CLAIRE" RÉPÉTÉ
@@ -291,29 +315,119 @@ function animateCounter(element, target, duration = 2000) {
 
 const buttons = document.querySelectorAll('.btn-primary, .btn-secondary, .btn-prestation');
 
-buttons.forEach(button => {
-    button.addEventListener('mousemove', function(e) {
-        const rect = this.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        this.style.setProperty('--mouse-x', `${x}px`);
-        this.style.setProperty('--mouse-y', `${y}px`);
+if (buttons.length > 0) {
+    buttons.forEach(button => {
+        if (button) {
+            button.addEventListener('mousemove', function(e) {
+                try {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    this.style.setProperty('--mouse-x', `${x}px`);
+                    this.style.setProperty('--mouse-y', `${y}px`);
+                } catch (e) {
+                    // Ignorer les erreurs
+                }
+            });
+        }
     });
-});
+}
 
 // ============================================
-// VALIDATION DU FORMULAIRE
+// VALIDATION DU FORMULAIRE AMÉLIORÉE
 // ============================================
 
 const contactForm = document.querySelector('.contact-form');
+const contactFormNew = document.querySelector('.contact-form-new');
 
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+function validateField(field) {
+    const value = field.value.trim();
+    const fieldGroup = field.closest('.form-group-new') || field.closest('.form-group');
+    let isValid = true;
+    let errorMessage = '';
+
+    // Supprimer les messages d'erreur existants
+    const existingError = fieldGroup.querySelector('.field-error');
+    if (existingError) existingError.remove();
+    
+    field.classList.remove('error', 'success');
+
+    // Validation selon le type de champ
+    if (field.hasAttribute('required') && !value) {
+        isValid = false;
+        errorMessage = 'Ce champ est obligatoire';
+    } else if (field.type === 'email' && value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            isValid = false;
+            errorMessage = 'Veuillez entrer une adresse email valide';
+        }
+    } else if (field.type === 'tel' && value) {
+        const phoneRegex = /^[0-9]{10}$/;
+        const cleaned = value.replace(/\s/g, '');
+        if (!phoneRegex.test(cleaned)) {
+            isValid = false;
+            errorMessage = 'Veuillez entrer un numéro de téléphone valide (10 chiffres)';
+        }
+    }
+
+    // Afficher le résultat
+    if (!isValid) {
+        field.classList.add('error');
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'field-error';
+        errorDiv.textContent = errorMessage;
+        fieldGroup.appendChild(errorDiv);
+    } else if (value) {
+        field.classList.add('success');
+    }
+
+    return isValid;
+}
+
+// Validation en temps réel
+function initFormValidation(form) {
+    if (!form) return;
+    
+    const fields = form.querySelectorAll('input, textarea, select');
+    
+    fields.forEach(field => {
+        // Validation au blur
+        field.addEventListener('blur', () => validateField(field));
+        
+        // Validation en temps réel pour email et tel
+        if (field.type === 'email' || field.type === 'tel') {
+            field.addEventListener('input', () => {
+                if (field.value.trim()) {
+                    validateField(field);
+                }
+            });
+        }
+    });
+
+    // Validation à la soumission
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
         
+        let isFormValid = true;
+        fields.forEach(field => {
+            if (!validateField(field)) {
+                isFormValid = false;
+            }
+        });
+
+        if (!isFormValid) {
+            const firstError = form.querySelector('.error');
+            if (firstError) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstError.focus();
+            }
+            return;
+        }
+
         // Animation de succès
-        const submitButton = this.querySelector('button[type="submit"]');
+        const submitButton = form.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
         
         submitButton.textContent = 'Envoi en cours...';
@@ -328,10 +442,91 @@ if (contactForm) {
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
                 submitButton.style.background = '';
-                this.reset();
+                form.reset();
+                fields.forEach(f => f.classList.remove('success', 'error'));
             }, 3000);
         }, 1500);
     });
+}
+
+// Initialiser les validations
+if (contactForm) initFormValidation(contactForm);
+if (contactFormNew) initFormValidation(contactFormNew);
+if (contactFormId) initFormValidation(contactFormId);
+
+// ============================================
+// EXIT-INTENT POPUP
+// ============================================
+
+let exitIntentShown = false;
+
+function initExitIntent() {
+    const popup = document.getElementById('exitIntentPopup');
+    const closeBtn = document.getElementById('closeExitPopup');
+    
+    if (!popup) return;
+
+    // Vérifier si déjà affiché dans cette session
+    if (sessionStorage.getItem('exitIntentShown') === 'true') {
+        exitIntentShown = true;
+        return;
+    }
+
+    // Détecter la sortie de la souris vers le haut
+    document.addEventListener('mouseleave', function(e) {
+        if (e.clientY <= 0 && !exitIntentShown) {
+            popup.classList.add('active');
+            exitIntentShown = true;
+            sessionStorage.setItem('exitIntentShown', 'true');
+        }
+    });
+
+    // Fermer le popup
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            popup.classList.remove('active');
+        });
+    }
+
+    popup.addEventListener('click', function(e) {
+        if (e.target === popup || e.target.classList.contains('exit-popup-overlay')) {
+            popup.classList.remove('active');
+        }
+    });
+}
+
+// ============================================
+// CTA FLOTTANT - AFFICHAGE AU SCROLL
+// ============================================
+
+function initFloatingCTA() {
+    const floatingCTA = document.getElementById('floatingCTA');
+    if (!floatingCTA) return;
+
+    let lastScrollTop = 0;
+    let isVisible = true;
+
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Afficher après 300px de scroll
+        if (scrollTop > 300) {
+            if (!isVisible) {
+                floatingCTA.style.display = 'block';
+                isVisible = true;
+            }
+        } else {
+            if (isVisible) {
+                floatingCTA.style.display = 'none';
+                isVisible = false;
+            }
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+
+    // Masquer initialement
+    floatingCTA.style.display = 'none';
 }
 
 // ============================================
@@ -371,60 +566,82 @@ function smoothScrollTo(target, duration = 1000) {
 
 const icons = document.querySelectorAll('.card-icon, .feature-icon, .why-icon');
 
-icons.forEach(icon => {
-    icon.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.2) rotate(10deg)';
-        this.style.transition = 'transform 0.3s ease';
+if (icons.length > 0) {
+    icons.forEach(icon => {
+        if (icon) {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.2) rotate(10deg)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        }
     });
-    
-    icon.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1) rotate(0deg)';
-    });
-});
+}
 
 // ============================================
 // EFFET DE RÉVÉLATION AU SCROLL
 // ============================================
 
 function revealOnScroll() {
-    const reveals = document.querySelectorAll('[data-aos]');
-    
-    reveals.forEach(element => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
+    try {
+        const reveals = document.querySelectorAll('[data-aos]');
         
-        if (elementTop < windowHeight - elementVisible) {
-            element.classList.add('aos-animate');
+        if (reveals.length > 0) {
+            reveals.forEach(element => {
+                if (element) {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < windowHeight - elementVisible) {
+                        element.classList.add('aos-animate');
+                    }
+                }
+            });
         }
-    });
+    } catch (e) {
+        console.log('Erreur revealOnScroll:', e);
+    }
 }
 
 // Effets d'apparition latéraux améliorés
 function initLateralAnimations() {
-    const lateralElements = document.querySelectorAll('[data-aos="fade-left"], [data-aos="fade-right"], [data-aos="slide-in-left"], [data-aos="slide-in-right"]');
-    
-    const lateralObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                entry.target.classList.add('aos-animate');
-                lateralObserver.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    });
-    
-    lateralElements.forEach(el => {
-        lateralObserver.observe(el);
-    });
+    try {
+        const lateralElements = document.querySelectorAll('[data-aos="fade-left"], [data-aos="fade-right"], [data-aos="slide-in-left"], [data-aos="slide-in-right"]');
+        
+        if (lateralElements.length > 0 && 'IntersectionObserver' in window) {
+            const lateralObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.target) {
+                        entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                        entry.target.classList.add('aos-animate');
+                        lateralObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            lateralElements.forEach(el => {
+                if (el) lateralObserver.observe(el);
+            });
+        }
+    } catch (e) {
+        console.log('Erreur initLateralAnimations:', e);
+    }
 }
 
 // Initialiser les animations latérales
 document.addEventListener('DOMContentLoaded', () => {
-    initLateralAnimations();
+    try {
+        initLateralAnimations();
+    } catch (e) {
+        console.log('Erreur initialisation animations:', e);
+    }
 });
 
 window.addEventListener('scroll', revealOnScroll);
@@ -483,66 +700,76 @@ window.addEventListener('load', () => {
 });
 
 // ============================================
-// EFFET DE VAGUE SUR LES SECTIONS
+// EFFET DE VAGUE SUR LES SECTIONS (OPTIONNEL - DÉSACTIVÉ)
 // ============================================
 
-function createWaveEffect() {
-    const sections = document.querySelectorAll('section');
-    
-    sections.forEach(section => {
-        const wave = document.createElement('div');
-        wave.className = 'wave';
-        wave.style.cssText = `
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: linear-gradient(to right, transparent, rgba(181, 97, 57, 0.1), transparent);
-            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        `;
-        section.appendChild(wave);
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    wave.style.opacity = '1';
-                } else {
-                    wave.style.opacity = '0';
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        observer.observe(section);
-    });
-}
+// Désactivé pour éviter les problèmes de performance
+// function createWaveEffect() {
+//     const sections = document.querySelectorAll('section');
+//     
+//     sections.forEach(section => {
+//         const wave = document.createElement('div');
+//         wave.className = 'wave';
+//         wave.style.cssText = `
+//             position: absolute;
+//             bottom: 0;
+//             left: 0;
+//             width: 100%;
+//             height: 100px;
+//             background: linear-gradient(to right, transparent, rgba(181, 97, 57, 0.1), transparent);
+//             clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+//             pointer-events: none;
+//             opacity: 0;
+//             transition: opacity 0.5s ease;
+//         `;
+//         section.appendChild(wave);
+//         
+//         const observer = new IntersectionObserver((entries) => {
+//             entries.forEach(entry => {
+//                 if (entry.isIntersecting) {
+//                     wave.style.opacity = '1';
+//                 } else {
+//                     wave.style.opacity = '0';
+//                 }
+//             });
+//         }, { threshold: 0.5 });
+//         
+//         observer.observe(section);
+//     });
+// }
 
-createWaveEffect();
+// createWaveEffect();
 
 // ============================================
 // PERFORMANCE: LAZY LOADING DES IMAGES
 // ============================================
 
 if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                    observer.unobserve(img);
+    try {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img && img.dataset && img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        observer.unobserve(img);
+                    }
                 }
-            }
+            });
+        }, {
+            rootMargin: '50px'
         });
-    });
-    
-    document.querySelectorAll('img[data-src]').forEach(img => {
-        imageObserver.observe(img);
-    });
+        
+        const lazyImages = document.querySelectorAll('img[data-src]');
+        if (lazyImages.length > 0) {
+            lazyImages.forEach(img => {
+                if (img) imageObserver.observe(img);
+            });
+        }
+    } catch (e) {
+        console.log('Lazy loading non disponible');
+    }
 }
 
 // ============================================
@@ -551,7 +778,24 @@ if ('IntersectionObserver' in window) {
 
 // Initialiser le carrousel au chargement
 document.addEventListener('DOMContentLoaded', () => {
-    initCarousel();
+    // Vérifier que les éléments existent avant d'initialiser
+    try {
+        initCarousel();
+    } catch (e) {
+        console.log('Carousel non présent sur cette page');
+    }
+    
+    try {
+        initExitIntent();
+    } catch (e) {
+        console.log('Exit intent non initialisé');
+    }
+    
+    try {
+        initFloatingCTA();
+    } catch (e) {
+        console.log('Floating CTA non initialisé');
+    }
 });
 
 // ============================================
