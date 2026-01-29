@@ -340,10 +340,11 @@ if (buttons.length > 0) {
 
 const contactForm = document.querySelector('.contact-form');
 const contactFormNew = document.querySelector('.contact-form-new');
+const contactFormCreative = document.querySelector('.contact-form-creative');
 
 function validateField(field) {
     const value = field.value.trim();
-    const fieldGroup = field.closest('.form-group-new') || field.closest('.form-group');
+    const fieldGroup = field.closest('.form-group-new') || field.closest('.form-group-creative') || field.closest('.form-group');
     let isValid = true;
     let errorMessage = '';
 
@@ -453,6 +454,7 @@ function initFormValidation(form) {
 if (contactForm) initFormValidation(contactForm);
 if (contactFormNew) initFormValidation(contactFormNew);
 if (contactFormId) initFormValidation(contactFormId);
+if (contactFormCreative) initFormValidation(contactFormCreative);
 
 // ============================================
 // EXIT-INTENT POPUP
